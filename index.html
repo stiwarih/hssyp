@@ -19,28 +19,37 @@
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+      <h1>
+<a id="cs-109a-data-science-harvard-university" class="anchor" href="#cs-109a-data-science-harvard-university" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CS 109A Data Science, Harvard University</h1>
 
-<p>To classify Epilepsy seizure, we look for the EEG data in physionet database in <a href="https://physionet.org/">https://physionet.org/</a>. Since epilepsy seizure pattern differ by patient, we cannot apply the same regression based on one patient on another patient. Here EEG is taken during both day and night. EEG taken during day time has other activities also recorded, for e.g: Eye blinking, moving finger etc. This is noise in the EEG data. </p>
+<h3>
+<a id="hannah-bend-sathish-kumar-yohann-smadja-and-sanjay-tiwari" class="anchor" href="#hannah-bend-sathish-kumar-yohann-smadja-and-sanjay-tiwari" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hannah Bend, Sathish Kumar, Yohann Smadja and Sanjay Tiwari</h3>
 
-<p>Every EEG file is approximately one hour reading on every patient. 2 8<br>
-28
- frequencies are recorded per second / channel. So, there are overall 921600 readings available per channel/hour. This is very huge amount of data. We are mostly interested in the EEG which is during the seizure and before/after. </p>
+<p>December 8, 2016</p>
 
-<p>Once we filter physionet database by the above requirement, we apply Discrete Wavelet Transform(DWT) on these files. Since we have 2 8<br>
-28
- frequencies recorded per second, we pass the mother wavelet through 8 filter bands to reduce the dimension.</p>
+<h1>
+<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><img src="https://github.com/stiwarih/hssyp/images/p1.png" alt="">
+</h1>
+
+<h1>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
+
+<h2>
+<a id="epilepsy-and-seizures" class="anchor" href="#epilepsy-and-seizures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Epilepsy and Seizures</h2>
+
+<p>The epilepsy is most common neurological disorder in which clusters of nerve cells (neurons), in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people all over the world. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, in turn cause secondary actions leading to a desired behavior. During a seizure, many neurons try to send signal at the same time, this abnormal surge of excessive electrical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
+
+<p>The introduction of new anti-epileptic drugs has made the most patient control the antiepileptic disorder, still one-third of people with epilepsy continue to have seizures despite treatment. In addition, the nature of the disease is quite unpredictable creates significant anxiety to the patients, mainly due to the fact that patients can experience loss of control and/or awareness. Thus detection and future predictions are key to minimize or eliminate the anxiety and fears at least in the cases where drug has no affect. A device able to detect seizures quickly could also improve patient care.</p>
+
+<h2>
+<a id="a-classification-problem" class="anchor" href="#a-classification-problem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A classification problem</h2>
+
+<p>Seizure detection is usually done using scalp electroencephalogram (EEG), a non-invasive, multichannel recording of the brain’s electrical activity. Classification between a normal activity and a seizure is usually done in two steps: noise filtering and classification. We propose here two approaches to noise filtering. We will use two transforms, Fourier and Discrete wavelets, to filter the data but also extract the useful information and structure behind the signals. We will test classical models of classification and Python’s sklearn libraries to run them.</p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
 <p>In 2016, Hannah Bend, Sanjay Tiwari, Sathish Kumar, Yohann Smadja.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/stiwarih/hssyp">Hssyp</a> is maintained by <a href="https://github.com/stiwarih">stiwarih</a>.</span>
