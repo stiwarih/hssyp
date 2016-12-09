@@ -81,7 +81,7 @@
 <p>Figure 4: Power spectrum of six 2-second samples of normal and epileptic activities (FP1-F7)
 The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of normal and epileptic activity. It is important to include the recordings of all channels as they represent different area of the brain. They each provide some unique information that will help our classifier.</p>
 
-<p><img src="images/p1/Power_spectrum_FP1_F7.png" alt="Figure 5: Power spectrum of 2-second samples of normal and epileptic activities"></p>
+<p><img src="images/p1/Power_spectrum_FP1_F7.PNG" alt="Figure 5: Power spectrum of 2-second samples of normal and epileptic activities"></p>
 
 <h2>
 <a id="22--brainwaves" class="anchor" href="#22--brainwaves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2  Brainwaves</h2>
@@ -97,7 +97,9 @@ The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of
 
 <p>Most of the epileptic activity is concentrated in those waves. After computing the power spectrum for each channel on 2-second epochs, we average the powers for each of the 4 brain waves. We now have 88 time series representing the brain activity of our patient. The figure below shows 2D scatter plots of alpha and delta waves for the P4-O2 channel. We notice that the classification might be easier during the night than during the day. The two scatter plots below show the average powers of delta and alpha waves during seizure episodes and during normal activity during the night or the day.</p>
 
-<p>Figure 6: Delta vs Alpha waves: Seizure (red) vs Night (dark blue) on the left and vs Day (gold) on the right</p>
+<p><img src="images/p1/deltavsalphanight.png" alt="Figure 6: Delta vs Alpha waves: Seizure (red) vs Night (dark blue)"></p>
+
+<p><img src="images/p1/deltavsalphanight.png" alt="Figure 6: Delta vs Alpha waves: Seizure (red) vs Night (dark blue) Day (gold)"></p>
 
 <h2>
 <a id="23--discrete-wavelet-transform" class="anchor" href="#23--discrete-wavelet-transform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3  Discrete Wavelet Transform</h2>
@@ -106,14 +108,18 @@ The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of
 
 <p>The DWT of a signal(x) is calculated by passing it through a series of filters. First the samples are passed through a low pass filter with impulse response(g) and simultaneously the signal is also decomposed using a high-pass filter(h). As an output, we get the detail and approximation coefficients.</p>
 
+<p><img src="images/p1/WaveletsDWT.png" alt="Figure 7: Block diagram of lter Analysis - 3 Level Filter Bank(DWT)"></p>
+
 <p>Half the frequencies of the signal are removed in every level of filter bank and hence half the samples can be discarded. The decomposition is repeated to further increase the frequency resolution. To illustrate the above, data from EEG files for channel FP1-F17 were passed through 3 levels of filter bank. The below picture shows the mother wavelet(EEG data) and the decomposed wavelets which has been shrunk 3 times because of the DWT process.</p>
 
-<p>Figure 8: Decomposition of a mother wavelet after 3 levels of filter banks
-Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 3 filter banks to decompose the wavelet by 23 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.
+<p><img src="images/p1/DWT3FilterBanks.png" alt="Figure 8: Decomposition of a mother wavelet after 3 levels of filter banks"></p>
+
+<p>Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 3 filter banks to decompose the wavelet by 23 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.
 We can transform EEG data to multiple wavelet forms e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. To do a comparison, we will use Haar wavelet as well to see how the results differ. For our analysis, we will only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
 
-<p>Figure 9: Shape of Haar Wavelet(left) and Shape of Daubechies(db2) wavelet(right)
-As it is seen above, the shape of the ”Daubechies” wavelet matches the shape of the EEG data. We expect to get better accuracy with daubechies wavelet.</p>
+<p><img src="images/p1/haarwavelet.png" alt="Figure 9: Shape of Haar Wavelet(left) and Shape of Daubechies(db2) wavelet(right)"></p>
+
+<p>As it is seen above, the shape of the ”Daubechies” wavelet matches the shape of the EEG data. We expect to get better accuracy with daubechies wavelet.</p>
 
 <h1>
 <a id="3-a-first-logistic-model" class="anchor" href="#3-a-first-logistic-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 A First (Logistic) Model</h1>
@@ -127,10 +133,11 @@ As it is seen above, the shape of the ”Daubechies” wavelet matches the shape
     Predicted Normal    0.093   0.361   0.618
 We can use the computed probability of class 1, of being in a state of epilepsy, to visualize how well we are doing during the night and the day.</p>
 
-<p>Figure 9: Around a seizure at night</p>
+<p><img src="images/p1/logistic1.png" alt="Figure 10: Around a seizure at night"></p>
 
-<p>Figure 10: Normal activity during the day
-We see a few false positives while the patient is asleep and several instances where the classifier estimates that the seizure is over while it is not. It is important to minimize the number of false negatives, predicting a non-seizure while the patient is experiencing a seizure. Seizures can be dangerous for our patient and a quick detection can be critical.</p>
+<p><img src="images/p1/logistic2.png" alt="Figure 11: Normal activity during the day"></p>
+
+<p>We see a few false positives while the patient is asleep and several instances where the classifier estimates that the seizure is over while it is not. It is important to minimize the number of false negatives, predicting a non-seizure while the patient is experiencing a seizure. Seizures can be dangerous for our patient and a quick detection can be critical.</p>
 
 <h1>
 <a id="4-feature-importance" class="anchor" href="#4-feature-importance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Feature Importance</h1>
@@ -138,8 +145,6 @@ We see a few false positives while the patient is asleep and several instances w
 <p>We added to our list of predictors a dummy variable equal to 1 if the recording was during the day, when the patient was supposedly awake, between 8am and 11pm. We also added interactions between the powers of the most important channels. We added a total of 10 new predictors including the dummy variable ”Day”.</p>
 
 <p>We used the feature importance output from Sklearn’s random forest function to understand what are the main predictors. Unfortunately the dummy variable is the least important feature of the 98 predictors. On the other hand, all the interaction terms are in the top 22 features. We could add more of them as the seem to add value to our classifier but with already 98 predictors we if we wanted to add all of them we would have  = 3828 new features. We use a data set of 3,040 observations hence we had to select only a subset of interaction terms. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity.</p>
-
-<p>Figure 11: Channel and wave importance</p>
 
 <h1>
 <a id="5-classifiers" class="anchor" href="#5-classifiers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Classifiers</h1>
@@ -150,13 +155,15 @@ We see a few false positives while the patient is asleep and several instances w
 <p>With the number of predictors we are working with, it is impossible to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).
 We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms. We used sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis and took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random</p>
 
-<p>Figure 12: Feature importance
-Forest, the classes were also balanced and we tried different depths. Finally, we set the number of depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Bossting.</p>
+<p><img src="images/p1/Channel_and_wave_importance.PNG" alt="Figure 12:Channel and wave importance"></p>
+
+<p>Forest, the classes were also balanced and we tried different depths. Finally, we set the number of depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Bossting.</p>
 
 <p>We first randomly split our dataset in a training and a testing set with proportions of 80%/20%. We used the training set to run cross validations by splitting the training set 10 times into 80%/20% sub-training/testing sets. Below are the average accuracy on class 0, class 1 and overall accuracy over the 10 testing sets. The results are in the tables below.</p>
 
-<p>We mentioned earlier that we wanted to select a model that had the best accuracy on class 1 to be able to detect seizures as soon as possible. If models had similar performance then looking at the overall accuracy is the next logic thing to do. Random Forest performed better than Quadratic Discriminant Analysis and Logistic regressions that also have impressive results.
-On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1.
+<p>We mentioned earlier that we wanted to select a model that had the best accuracy on class 1 to be able to detect seizures as soon as possible. If models had similar performance then looking at the overall accuracy is the next logic thing to do. Random Forest performed better than Quadratic Discriminant Analysis and Logistic regressions that also have impressive results.</p>
+
+<p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1.
 Logistic Regression
 C   class 0 class 1 overall
 0.1 0.962   0.934   0.960
@@ -170,8 +177,9 @@ C   class 0 class 1 overall
 25.0    0.961   0.940   0.959
     50.0    0.968   0.925   0.965</p>
 
-<p>Figure 13: Feature importance with interactions
-LDA
+<p><img src="images/p1/eeg_electrodes2.png" alt="Figure 13: Feature importance with interactions"></p>
+
+<p>LDA
 class 0 class 1 overall
     0.996   0.911   0.99
 QDA
