@@ -78,10 +78,11 @@
 
 <p>The figure below presents the power spectrum of six two-second epochs recorded by the FP1F7 channel. The three on the right are from normal activity and the three on the right are from the same seizure. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures.</p>
 
-<p>Figure 4: Power spectrum of six 2-second samples of normal and epileptic activities (FP1-F7)
-The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of normal and epileptic activity. It is important to include the recordings of all channels as they represent different area of the brain. They each provide some unique information that will help our classifier.</p>
+<p><img src="images/p1/Power_spectrum_FP1_F7.PNG" alt="Figure 4: Power spectrum of 2-second samples of normal and epileptic activities"></p>
 
-<p><img src="images/p1/Power_spectrum_FP1_F7.PNG" alt="Figure 5: Power spectrum of 2-second samples of normal and epileptic activities"></p>
+<p>The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of normal and epileptic activity. It is important to include the recordings of all channels as they represent different area of the brain. They each provide some unique information that will help our classifier.</p>
+
+<p><img src="images/p1/PSmultichannels.png" alt="Figure 5: Power spectrum of 2-second samples of normal and epileptic activities"></p>
 
 <h2>
 <a id="22--brainwaves" class="anchor" href="#22--brainwaves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2  Brainwaves</h2>
@@ -114,8 +115,9 @@ The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of
 
 <p><img src="images/p1/DWT3FilterBanks.png" alt="Figure 8: Decomposition of a mother wavelet after 3 levels of filter banks"></p>
 
-<p>Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 3 filter banks to decompose the wavelet by 23 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.
-We can transform EEG data to multiple wavelet forms e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. To do a comparison, we will use Haar wavelet as well to see how the results differ. For our analysis, we will only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
+<p>Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 3 filter banks to decompose the wavelet by 23 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.</p>
+
+<p>We can transform EEG data to multiple wavelet forms e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. To do a comparison, we will use Haar wavelet as well to see how the results differ. For our analysis, we will only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
 
 <p><img src="images/p1/haarwavelet.png" alt="Figure 9: Shape of Haar Wavelet(left) and Shape of Daubechies(db2) wavelet(right)"></p>
 
@@ -135,9 +137,9 @@ We can use the computed probability of class 1, of being in a state of epilepsy,
 
 <p><img src="images/p1/logistic1.png" alt="Figure 10: Around a seizure at night"></p>
 
-<p><img src="images/p1/logistic2.png" alt="Figure 11: Normal activity during the day"></p>
-
 <p>We see a few false positives while the patient is asleep and several instances where the classifier estimates that the seizure is over while it is not. It is important to minimize the number of false negatives, predicting a non-seizure while the patient is experiencing a seizure. Seizures can be dangerous for our patient and a quick detection can be critical.</p>
+
+<p><img src="images/p1/logistic2.png" alt="Figure 11: Normal activity during the day"></p>
 
 <h1>
 <a id="4-feature-importance" class="anchor" href="#4-feature-importance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Feature Importance</h1>
