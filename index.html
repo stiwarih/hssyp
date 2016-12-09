@@ -56,10 +56,13 @@
 
 <p>We have noticed that the channel T8-P8 appears twice in the EEG files. The name and the time series are identical. We also notice that the channel T7-P7 and P7-T7 (logically) present the same information. The dataset was used for the phD thesis of Ali Shoeb who makes no mention of</p>
 
-<p>Figure 2: 40 second of EEG signals: normal activity (left) vs epilepsy (right)</p>
+<p><img src="images/p1/40secnormal.png" alt="40 second of EEG signals: normal activity "></p>
 
-<p>Figure 3: Difference in amplitudes: normal EEG vs epilepsy (FP1-F7)
-cleaning the data but does filter the signals before doing any feature engineering.</p>
+<p><img src="images/p1/40secepilepsy.png" alt="40 second of EEG signals: epilepsy activity "></p>
+
+<p><img src="images/p1/FP1_F7_normal_vs_epil.png" alt="Difference in amplitudes: normal EEG vs epilepsy (FP1-F7) "></p>
+
+<p>cleaning the data but does filter the signals before doing any feature engineering.</p>
 
 <h1>
 <a id="2-feature-engineering" class="anchor" href="#2-feature-engineering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Feature Engineering</h1>
@@ -78,7 +81,7 @@ cleaning the data but does filter the signals before doing any feature engineeri
 <p>Figure 4: Power spectrum of six 2-second samples of normal and epileptic activities (FP1-F7)
 The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of normal and epileptic activity. It is important to include the recordings of all channels as they represent different area of the brain. They each provide some unique information that will help our classifier.</p>
 
-<p>Figure 5: Power spectrum of 2-second samples of normal and epileptic activities</p>
+<p><img src="images/p1/Power_spectrum_FP1_F7.png" alt="Figure 5: Power spectrum of 2-second samples of normal and epileptic activities"></p>
 
 <h2>
 <a id="22--brainwaves" class="anchor" href="#22--brainwaves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2  Brainwaves</h2>
@@ -103,13 +106,14 @@ The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of
 
 <p>The DWT of a signal(x) is calculated by passing it through a series of filters. First the samples are passed through a low pass filter with impulse response(g) and simultaneously the signal is also decomposed using a high-pass filter(h). As an output, we get the detail and approximation coefficients.</p>
 
-<p>Figure 7: Block diagram of filter Analysis - 3 Level Filter Bank(DWT)
-In this process half the frequencies of the signal are removed and hence half the samples can be discarded. The decomposition is repeated to further increase the frequency resolution. To illustrate the above, data from two different EEG files for channel FP1-F17 were passed through 8 levels of filter bank. The below picture shows the mother wavelet(EEG data) and the decomposed wavelets which has been shrunk 8 times because of the DWT process.</p>
+<p>Half the frequencies of the signal are removed in every level of filter bank and hence half the samples can be discarded. The decomposition is repeated to further increase the frequency resolution. To illustrate the above, data from EEG files for channel FP1-F17 were passed through 3 levels of filter bank. The below picture shows the mother wavelet(EEG data) and the decomposed wavelets which has been shrunk 3 times because of the DWT process.</p>
 
-<p>Figure 8: Decomposition of a mother wavelet after 8 levels of filter banks
-Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 8 filter banks to decompose the wavelet by 28 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information.</p>
+<p>Figure 8: Decomposition of a mother wavelet after 3 levels of filter banks
+Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 3 filter banks to decompose the wavelet by 23 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.
+We can transform EEG data to multiple wavelet forms e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. To do a comparison, we will use Haar wavelet as well to see how the results differ. For our analysis, we will only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
 
-<p>There are different types of wavelet forms available e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. For our analysis, we will use only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will be become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
+<p>Figure 9: Shape of Haar Wavelet(left) and Shape of Daubechies(db2) wavelet(right)
+As it is seen above, the shape of the ”Daubechies” wavelet matches the shape of the EEG data. We expect to get better accuracy with daubechies wavelet.</p>
 
 <h1>
 <a id="3-a-first-logistic-model" class="anchor" href="#3-a-first-logistic-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 A First (Logistic) Model</h1>
