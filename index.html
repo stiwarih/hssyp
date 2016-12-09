@@ -28,21 +28,6 @@
 <p><img src="images/p1/p1.png" alt="A logistic model detects a seizure"></p>
 
 <h1>
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
-
-<h2>
-<a id="epilepsy-and-seizures" class="anchor" href="#epilepsy-and-seizures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Epilepsy and Seizures</h2>
-
-<p>The epilepsy is most common neurological disorder in which clusters of nerve cells (neurons), in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people all over the world. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, in turn cause secondary actions leading to a desired behavior. During a seizure, many neurons try to send signal at the same time, this abnormal surge of excessive electrical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
-
-<p>The introduction of new anti-epileptic drugs has made the most patient control the antiepileptic disorder, still one-third of people with epilepsy continue to have seizures despite treatment. In addition, the nature of the disease is quite unpredictable creates significant anxiety to the patients, mainly due to the fact that patients can experience loss of control and/or awareness. Thus detection and future predictions are key to minimize or eliminate the anxiety and fears at least in the cases where drug has no affect. A device able to detect seizures quickly could also improve patient care.</p>
-
-<h2>
-<a id="a-classification-problem" class="anchor" href="#a-classification-problem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A classification problem</h2>
-
-<p>Seizure detection is usually done using scalp electroencephalogram (EEG), a non-invasive, multichannel recording of the brain’s electrical activity. Classification between a normal activity and a seizure is usually done in two steps: noise filtering and classification. We propose here two approaches to noise filtering. We will use two transforms, Fourier and Discrete wavelets, to filter the data but also extract the useful information and structure behind the signals. We will test classical models of classification and Python’s sklearn libraries to run them.</p>
-
-<h1>
 <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 Introduction</h1>
 
 <h2>
@@ -55,73 +40,119 @@
 <h2>
 <a id="12--a-classification-problem" class="anchor" href="#12--a-classification-problem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2  A classification problem</h2>
 
-<p>Seizure detection is usually done using scalp electroencephalogram (EEG), a non-invasive, multichannel recording of the brain’s electrical activity. Classification between a normal activity and a seizure is usually done in two steps: noise filtering and classification. We propose here two approaches to noise filtering. We will use two transforms, Fourier and Discrete wavelets, to filter the data but also extract the useful information and structure behind the signals. We will test classical models of classification and Python’s sklearn libraries to run them.
-1.3 Data
-A study was conducted at the Children’s Hospital Boston where EEG was recorded on pediatric subjects with intractable (i.e. epileptic) seizures. There were 22 subjects in the study: 5 male, ages 3-22, and 17 females, ages 1.5-19; subject 21 was evaluated a second time 1.5 years later, thus resulting in 23 cases. Each case contains between 9 and 42 continuous .edf files from a single subject, typically consisting of one hour each. Prior to measuring, subjects were taken off of any antiseizure medication. The files can be found at <a href="https://physionet.org/physiobank/database/chbmit/">https://physionet.org/physiobank/database/chbmit/</a>
-1.4 EEG Samples
-Most of the EEG files have 23 recordings from electrodes placed around the head of the patient. Figures 1 presents two EEG recordings of 40 seconds each. The first one was recorded at 1:43pm, while the patient was awake, and so should represent normal activity of the brain. The second one was recorded 50 minutes later. Within this 40 seconds, the patient experiences one epileptic seizure. As the size of the EEG makes it difficult to assess how much bigger the amplitudes are when the patient is experiencing a seizure, Figure 2 zooms in on one channel for the non-seizure and seizure activity. Here we begin to see a marked difference between the two.
-1.5 Data cleaning
-We have noticed that the channel T8-P8 appears twice in the EEG files. The name and the time series are identical. We also notice that the channel T7-P7 and P7-T7 (logically) present the same information. The dataset was used for the phD thesis of Ali Shoeb who makes no mention of</p>
+<p>Seizure detection is usually done using scalp electroencephalogram (EEG), a non-invasive, multichannel recording of the brain’s electrical activity. Classification between a normal activity and a seizure is usually done in two steps: noise filtering and classification. We propose here two approaches to noise filtering. We will use two transforms, Fourier and Discrete wavelets, to filter the data but also extract the useful information and structure behind the signals. We will test classical models of classification and Python’s sklearn libraries to run them.</p>
+
+<h2>
+<a id="13--data" class="anchor" href="#13--data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.3  Data</h2>
+
+<p>A study was conducted at the Children’s Hospital Boston where EEG was recorded on pediatric subjects with intractable (i.e. epileptic) seizures. There were 22 subjects in the study: 5 male, ages 3-22, and 17 females, ages 1.5-19; subject 21 was evaluated a second time 1.5 years later, thus resulting in 23 cases. Each case contains between 9 and 42 continuous .edf files from a single subject, typically consisting of one hour each. Prior to measuring, subjects were taken off of any antiseizure medication. The files can be found at <a href="https://physionet.org/physiobank/database/chbmit/">https://physionet.org/physiobank/database/chbmit/</a></p>
+
+<h2>
+<a id="14--eeg-samples" class="anchor" href="#14--eeg-samples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.4  EEG Samples</h2>
+
+<p>Most of the EEG files have 23 recordings from electrodes placed around the head of the patient. Figures 1 presents two EEG recordings of 40 seconds each. The first one was recorded at 1:43pm, while the patient was awake, and so should represent normal activity of the brain. The second one was recorded 50 minutes later. Within this 40 seconds, the patient experiences one epileptic seizure. As the size of the EEG makes it difficult to assess how much bigger the amplitudes are when the patient is experiencing a seizure, Figure 2 zooms in on one channel for the non-seizure and seizure activity. Here we begin to see a marked difference between the two.</p>
+
+<h2>
+<a id="15--data-cleaning" class="anchor" href="#15--data-cleaning" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.5  Data cleaning</h2>
+
+<p>We have noticed that the channel T8-P8 appears twice in the EEG files. The name and the time series are identical. We also notice that the channel T7-P7 and P7-T7 (logically) present the same information. The dataset was used for the phD thesis of Ali Shoeb who makes no mention of</p>
 
 <p>Figure 2: 40 second of EEG signals: normal activity (left) vs epilepsy (right)</p>
 
 <p>Figure 3: Difference in amplitudes: normal EEG vs epilepsy (FP1-F7)
-cleaning the data but does filter the signals before doing any feature engineering.
-2   Feature Engineering
-Higher EEG amplitudes is not the only factor to detect a seizure. The brain’s activity is often composed of multiple frequency components. We will study the presence or absence of some components to classify what is a seizure and what is not. We used two techniques to extract the components from the original time series: The Fourier transform and Discrete Wavelet transform.
-2.1 Fourier Transform
-The Fourier decomposes the EEG time series into a voltage by frequency spectral graph commonly called the ”power spectrum”, with power being the square of the EEG magnitude, and magnitude being the integral average of the amplitude of the EEG signal, measured from (+)peak to (-)peak), across the time sampled, or epoch. This transform helps us visualize the structure behind the signal.
-EEG signals can quickly vary over time even during a seizure. They are non-stationary signals hence we will compute power spectrum densities on short intervals. We used two-second epochs like Shoeb and Guttag suggested in their article.
-The figure below presents the power spectrum of six two-second epochs recorded by the FP1F7 channel. The three on the right are from normal activity and the three on the right are from the same seizure. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures.</p>
+cleaning the data but does filter the signals before doing any feature engineering.</p>
+
+<h1>
+<a id="2-feature-engineering" class="anchor" href="#2-feature-engineering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Feature Engineering</h1>
+
+<p>Higher EEG amplitudes is not the only factor to detect a seizure. The brain’s activity is often composed of multiple frequency components. We will study the presence or absence of some components to classify what is a seizure and what is not. We used two techniques to extract the components from the original time series: The Fourier transform and Discrete Wavelet transform.</p>
+
+<h2>
+<a id="21--fourier-transform" class="anchor" href="#21--fourier-transform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1  Fourier Transform</h2>
+
+<p>The Fourier decomposes the EEG time series into a voltage by frequency spectral graph commonly called the ”power spectrum”, with power being the square of the EEG magnitude, and magnitude being the integral average of the amplitude of the EEG signal, measured from (+)peak to (-)peak), across the time sampled, or epoch. This transform helps us visualize the structure behind the signal.</p>
+
+<p>EEG signals can quickly vary over time even during a seizure. They are non-stationary signals hence we will compute power spectrum densities on short intervals. We used two-second epochs like Shoeb and Guttag suggested in their article.</p>
+
+<p>The figure below presents the power spectrum of six two-second epochs recorded by the FP1F7 channel. The three on the right are from normal activity and the three on the right are from the same seizure. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures.</p>
 
 <p>Figure 4: Power spectrum of six 2-second samples of normal and epileptic activities (FP1-F7)
 The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of normal and epileptic activity. It is important to include the recordings of all channels as they represent different area of the brain. They each provide some unique information that will help our classifier.</p>
 
-<p>Figure 5: Power spectrum of 2-second samples of normal and epileptic activities
-2.2 Brainwaves
-Neural oscillations can be observed at all time even when a patient is resting or sleeping. A great analogy is to think of those oscillations as musical notes. Waves with low frequency are like a deeply penetrating drum beat while brainwaves with high frequency are like a high pitched flute. We can see the EEG signals as the partition of a symphony.
-• Delta waves (.5 to 3 Hz): Delta brainwaves have the lowest frequency. They are usually generated in deep meditation or dreamless sleep.
-• Theta waves (3 to 8 HZ): Theta brainwaves occur most often in sleep and states of reduced consciousness. Theta waves dominate when our body falls asleep. We will see later that those waves are the most important ones during epileptic events.
-• Alpha waves (8 to 12 Hz): Alpha brainwaves are dominant when we are quietly thinking and resting.
-• Beta waves (12 to 38 Hz): Beta brainwaves dominate our normal waking state of consciousness when attention is directed towards cognitive tasks and the outside world.
-Most of the epileptic activity is concentrated in those waves. After computing the power spectrum for each channel on 2-second epochs, we average the powers for each of the 4 brain waves. We now have 88 time series representing the brain activity of our patient. The figure below shows 2D scatter plots of alpha and delta waves for the P4-O2 channel. We notice that the classification might be easier during the night than during the day. The two scatter plots below show the average powers of delta and alpha waves during seizure episodes and during normal activity during the night or the day.</p>
+<p>Figure 5: Power spectrum of 2-second samples of normal and epileptic activities</p>
 
-<p>Figure 6: Delta vs Alpha waves: Seizure (red) vs Night (dark blue) on the left and vs Day (gold) on the right
-2.3 Discrete Wavelet Transform
-The wavelet transform is similar to the Fourier transform with a completely different merit function. A key advantage it has over Fourier transforms is temporal resolution: it captures both frequency and location information (location in time). The discrete wavelet transform (DWT) is an implementation of the wavelet transform using a discrete set of the wavelet scales and translations obeying some defined rules.
-The DWT of a signal(x) is calculated by passing it through a series of filters. First the samples are passed through a low pass filter with impulse response(g) and simultaneously the signal is also decomposed using a high-pass filter(h). As an output, we get the detail and approximation coefficients.</p>
+<h2>
+<a id="22--brainwaves" class="anchor" href="#22--brainwaves" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.2  Brainwaves</h2>
+
+<p>Neural oscillations can be observed at all time even when a patient is resting or sleeping. A great analogy is to think of those oscillations as musical notes. Waves with low frequency are like a deeply penetrating drum beat while brainwaves with high frequency are like a high pitched flute. We can see the EEG signals as the partition of a symphony.</p>
+
+<ul>
+<li>Delta waves (.5 to 3 Hz): Delta brainwaves have the lowest frequency. They are usually generated in deep meditation or dreamless sleep.</li>
+<li>Theta waves (3 to 8 HZ): Theta brainwaves occur most often in sleep and states of reduced consciousness. Theta waves dominate when our body falls asleep. We will see later that those waves are the most important ones during epileptic events.</li>
+<li>Alpha waves (8 to 12 Hz): Alpha brainwaves are dominant when we are quietly thinking and resting.</li>
+<li>Beta waves (12 to 38 Hz): Beta brainwaves dominate our normal waking state of consciousness when attention is directed towards cognitive tasks and the outside world.</li>
+</ul>
+
+<p>Most of the epileptic activity is concentrated in those waves. After computing the power spectrum for each channel on 2-second epochs, we average the powers for each of the 4 brain waves. We now have 88 time series representing the brain activity of our patient. The figure below shows 2D scatter plots of alpha and delta waves for the P4-O2 channel. We notice that the classification might be easier during the night than during the day. The two scatter plots below show the average powers of delta and alpha waves during seizure episodes and during normal activity during the night or the day.</p>
+
+<p>Figure 6: Delta vs Alpha waves: Seizure (red) vs Night (dark blue) on the left and vs Day (gold) on the right</p>
+
+<h2>
+<a id="23--discrete-wavelet-transform" class="anchor" href="#23--discrete-wavelet-transform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.3  Discrete Wavelet Transform</h2>
+
+<p>The wavelet transform is similar to the Fourier transform with a completely different merit function. A key advantage it has over Fourier transforms is temporal resolution: it captures both frequency and location information (location in time). The discrete wavelet transform (DWT) is an implementation of the wavelet transform using a discrete set of the wavelet scales and translations obeying some defined rules.</p>
+
+<p>The DWT of a signal(x) is calculated by passing it through a series of filters. First the samples are passed through a low pass filter with impulse response(g) and simultaneously the signal is also decomposed using a high-pass filter(h). As an output, we get the detail and approximation coefficients.</p>
 
 <p>Figure 7: Block diagram of filter Analysis - 3 Level Filter Bank(DWT)
 In this process half the frequencies of the signal are removed and hence half the samples can be discarded. The decomposition is repeated to further increase the frequency resolution. To illustrate the above, data from two different EEG files for channel FP1-F17 were passed through 8 levels of filter bank. The below picture shows the mother wavelet(EEG data) and the decomposed wavelets which has been shrunk 8 times because of the DWT process.</p>
 
 <p>Figure 8: Decomposition of a mother wavelet after 8 levels of filter banks
-Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 8 filter banks to decompose the wavelet by 28 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information.
-There are different types of wavelet forms available e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. For our analysis, we will use only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will be become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.
-3   A First (Logistic) Model
-Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weights logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively. Our classifier has a high percentage of false positive. We missed almost 10% of epileptic states but the percentage of false negative is low even during the day.
-    Seizure Normal (Night)  Normal (Day)
-Predicted Seizure   0.907   0.011   0.011
+Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 8 filter banks to decompose the wavelet by 28 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information.</p>
+
+<p>There are different types of wavelet forms available e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. For our analysis, we will use only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will be become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
+
+<h1>
+<a id="3-a-first-logistic-model" class="anchor" href="#3-a-first-logistic-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 A First (Logistic) Model</h1>
+
+<p>Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weights logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively. Our classifier has a high percentage of false positive. We missed almost 10% of epileptic states but the percentage of false negative is low even during the day.</p>
+
+<pre><code>Seizure Normal (Night)  Normal (Day)
+</code></pre>
+
+<p>Predicted Seizure   0.907   0.011   0.011
     Predicted Normal    0.093   0.361   0.618
 We can use the computed probability of class 1, of being in a state of epilepsy, to visualize how well we are doing during the night and the day.</p>
 
 <p>Figure 9: Around a seizure at night</p>
 
 <p>Figure 10: Normal activity during the day
-We see a few false positives while the patient is asleep and several instances where the classifier estimates that the seizure is over while it is not. It is important to minimize the number of false negatives, predicting a non-seizure while the patient is experiencing a seizure. Seizures can be dangerous for our patient and a quick detection can be critical.
-4   Feature Importance
-We added to our list of predictors a dummy variable equal to 1 if the recording was during the day, when the patient was supposedly awake, between 8am and 11pm. We also added interactions between the powers of the most important channels. We added a total of 10 new predictors including the dummy variable ”Day”.
-We used the feature importance output from Sklearn’s random forest function to understand what are the main predictors. Unfortunately the dummy variable is the least important feature of the 98 predictors. On the other hand, all the interaction terms are in the top 22 features. We could add more of them as the seem to add value to our classifier but with already 98 predictors we if we wanted to add all of them we would have  = 3828 new features. We use a data set of 3,040 observations hence we had to select only a subset of interaction terms. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity.</p>
+We see a few false positives while the patient is asleep and several instances where the classifier estimates that the seizure is over while it is not. It is important to minimize the number of false negatives, predicting a non-seizure while the patient is experiencing a seizure. Seizures can be dangerous for our patient and a quick detection can be critical.</p>
 
-<p>Figure 11: Channel and wave importance
-5   Classifiers
-5.1 Power Spectrum approach
-With the number of predictors we are working with, it is impossible to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).
+<h1>
+<a id="4-feature-importance" class="anchor" href="#4-feature-importance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 Feature Importance</h1>
+
+<p>We added to our list of predictors a dummy variable equal to 1 if the recording was during the day, when the patient was supposedly awake, between 8am and 11pm. We also added interactions between the powers of the most important channels. We added a total of 10 new predictors including the dummy variable ”Day”.</p>
+
+<p>We used the feature importance output from Sklearn’s random forest function to understand what are the main predictors. Unfortunately the dummy variable is the least important feature of the 98 predictors. On the other hand, all the interaction terms are in the top 22 features. We could add more of them as the seem to add value to our classifier but with already 98 predictors we if we wanted to add all of them we would have  = 3828 new features. We use a data set of 3,040 observations hence we had to select only a subset of interaction terms. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity.</p>
+
+<p>Figure 11: Channel and wave importance</p>
+
+<h1>
+<a id="5-classifiers" class="anchor" href="#5-classifiers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 Classifiers</h1>
+
+<h2>
+<a id="51--power-spectrum-approach" class="anchor" href="#51--power-spectrum-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1  Power Spectrum approach</h2>
+
+<p>With the number of predictors we are working with, it is impossible to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).
 We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms. We used sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis and took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random</p>
 
 <p>Figure 12: Feature importance
-Forest, the classes were also balanced and we tried different depths. Finally, we set the number of depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Bossting.
-We first randomly split our dataset in a training and a testing set with proportions of 80%/20%. We used the training set to run cross validations by splitting the training set 10 times into 80%/20% sub-training/testing sets. Below are the average accuracy on class 0, class 1 and overall accuracy over the 10 testing sets. The results are in the tables below.
-We mentioned earlier that we wanted to select a model that had the best accuracy on class 1 to be able to detect seizures as soon as possible. If models had similar performance then looking at the overall accuracy is the next logic thing to do. Random Forest performed better than Quadratic Discriminant Analysis and Logistic regressions that also have impressive results.
+Forest, the classes were also balanced and we tried different depths. Finally, we set the number of depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Bossting.</p>
+
+<p>We first randomly split our dataset in a training and a testing set with proportions of 80%/20%. We used the training set to run cross validations by splitting the training set 10 times into 80%/20% sub-training/testing sets. Below are the average accuracy on class 0, class 1 and overall accuracy over the 10 testing sets. The results are in the tables below.</p>
+
+<p>We mentioned earlier that we wanted to select a model that had the best accuracy on class 1 to be able to detect seizures as soon as possible. If models had similar performance then looking at the overall accuracy is the next logic thing to do. Random Forest performed better than Quadratic Discriminant Analysis and Logistic regressions that also have impressive results.
 On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1.
 Logistic Regression
 C   class 0 class 1 overall
@@ -170,25 +201,39 @@ n estimators    class 0 class 1 overall
 600 0.997   0.920   0.992
 700 0.996   0.923   0.991
 800 0.996   0.928   0.992
-    900 0.996   0.928   0.992
-5.2 Discrete Wavelet Transform approach
-Random forest is also the best model to predict seizures using the Discrete Wavelet transform. This approach underperforms the Power spectrum models with higher numbers of false negatives and positives.
+    900 0.996   0.928   0.992</p>
+
+<h2>
+<a id="52--discrete-wavelet-transform-approach" class="anchor" href="#52--discrete-wavelet-transform-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2  Discrete Wavelet Transform approach</h2>
+
+<p>Random forest is also the best model to predict seizures using the Discrete Wavelet transform. This approach underperforms the Power spectrum models with higher numbers of false negatives and positives.
     Seizure Normal
     Predicted Seizure   0.905   0.124
-    Predicted Normal    0.095   0.87
-6   Generalization to other patients
-6.1 Patient-specific model
-Previously we used data from a single patient to fit a model and make predictions. Can we use the same model to predict seizures for other patients? Shoeb warned that multi-patient classifiers would not be as effective. Seizures can differ dramatically between patients. Artifacts for one patient can look like a seizure for another patient.
-The patient-specific random forest had impressive results on testing sets. We separated predictions made during the day and the night. We do not seem to do much better at night like we could have expected when we looked at scatter plots of the data.
-    Seizure Normal - Night  Normal - Day
-Predicted Seizure   0.957   0.025   0.009
+    Predicted Normal    0.095   0.87</p>
+
+<h1>
+<a id="6-generalization-to-other-patients" class="anchor" href="#6-generalization-to-other-patients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 Generalization to other patients</h1>
+
+<h2>
+<a id="61--patient-specific-model" class="anchor" href="#61--patient-specific-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1  Patient-specific model</h2>
+
+<p>Previously we used data from a single patient to fit a model and make predictions. Can we use the same model to predict seizures for other patients? Shoeb warned that multi-patient classifiers would not be as effective. Seizures can differ dramatically between patients. Artifacts for one patient can look like a seizure for another patient.
+The patient-specific random forest had impressive results on testing sets. We separated predictions made during the day and the night. We do not seem to do much better at night like we could have expected when we looked at scatter plots of the data.</p>
+
+<pre><code>Seizure Normal - Night  Normal - Day
+</code></pre>
+
+<p>Predicted Seizure   0.957   0.025   0.009
     Predicted Normal    0.043   0.381   0.585
 Next we applied this model to new patients to see if we could generalize this model. Unfortunately, the number of false negatives went up dramatically from 4.3% to 43.3%. In addition, the model accuracy on normal activity decreased from 96.4% to 87.1%. The number of false positives increases more significantly during the day.
     Seizure Normal - Night  Normal - Day
 Predicted Seizure   0.566   0.018   0.112
-    Predicted Normal    0.434   0.383   0.488
-6.2 Multi-patient model
-Next we created a multi-patient model. We merged the data from 5 patients. We did the same split of train and test with 80/20% as done before. We used the same Random Forest approach by growing 300 trees with maximum depth of 2. Like expected this model is not as effective as our patient-specific model. We have 20.5% of false negatives and 6.3% of false positives. It is better though than applying a model from one patient to another.
+    Predicted Normal    0.434   0.383   0.488</p>
+
+<h2>
+<a id="62--multi-patient-model" class="anchor" href="#62--multi-patient-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2  Multi-patient model</h2>
+
+<p>Next we created a multi-patient model. We merged the data from 5 patients. We did the same split of train and test with 80/20% as done before. We used the same Random Forest approach by growing 300 trees with maximum depth of 2. Like expected this model is not as effective as our patient-specific model. We have 20.5% of false negatives and 6.3% of false positives. It is better though than applying a model from one patient to another.
     Seizure Normal - Night  Normal - Day
 Predicted Seizure   0.795   0.027   0.036
     Predicted Normal    0.205   0.385   0.552</p>
