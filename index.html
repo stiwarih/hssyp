@@ -165,64 +165,45 @@ We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis
 
 <p>We mentioned earlier that we wanted to select a model that had the best accuracy on class 1 to be able to detect seizures as soon as possible. If models had similar performance then looking at the overall accuracy is the next logic thing to do. Random Forest performed better than Quadratic Discriminant Analysis and Logistic regressions that also have impressive results.</p>
 
-<p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1.
-Logistic Regression
-C   class 0 class 1 overall
-0.1 0.962   0.934   0.960
-0.3 0.965   0.933   0.963
-0.6 0.965   0.929   0.963
-0.8 0.968   0.935   0.965
-1.0 0.965   0.930   0.963
-2.0 0.967   0.933   0.965
-5.0 0.964   0.939   0.962
-10.0    0.966   0.929   0.963
-25.0    0.961   0.940   0.959
-    50.0    0.968   0.925   0.965</p>
+<p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1.</p>
+
+<p><img src="images/p1/t1_logistic1.PNG" alt="Logistic Regression 2"></p>
 
 <p><img src="images/p1/eeg_electrodes2.png" alt="Figure 13: Feature importance with interactions"></p>
 
-<p>LDA
-class 0 class 1 overall
-    0.996   0.911   0.99
-QDA
-reg param   class 0 class 1 overall
-0.00    0.966   0.992   0.968
-0.10    0.962   1.000   0.965
-0.25    0.956   1.000   0.959
-0.50    0.943   1.000   0.947
-0.75    0.909   1.000   0.915
-0.90    0.879   1.000   0.887
-    1.00    0.991   0.511   0.959
-Random Forest max depth class 0 class 1 overall
-2   0.980   0.968   0.979
-5   0.993   0.935   0.989
-7   0.994   0.922   0.989
-10  0.996   0.897   0.990
-15  0.997   0.893   0.990
-20  0.997   0.894   0.990
-25
-Gradient Boosting   0.997   0.892   0.989
-n estimators    class 0 class 1 overall
-50  1.000   0.000   0.933
-100 0.998   0.795   0.984
-150 0.998   0.849   0.987
-200 0.997   0.878   0.989
-250 0.997   0.893   0.990
-300 0.997   0.907   0.991
-400 0.997   0.912   0.991
-500 0.996   0.915   0.991
-600 0.997   0.920   0.992
-700 0.996   0.923   0.991
-800 0.996   0.928   0.992
-    900 0.996   0.928   0.992</p>
+<p><img src="images/p1/t2_logistic2.PNG" alt="Logistic Regression 2"></p>
+
+<p><img src="images/p1/t3_QDA.PNG" alt="QDA"></p>
+
+<p><img src="images/p1/Feature_importance_with_interactions.PNG" alt="Feature_importance_with_interactions"></p>
+
+<p><img src="images/p1/t4_boosting.PNG" alt="boosting"></p>
 
 <h2>
 <a id="52--discrete-wavelet-transform-approach" class="anchor" href="#52--discrete-wavelet-transform-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2  Discrete Wavelet Transform approach</h2>
 
-<p>Random forest is also the best model to predict seizures using the Discrete Wavelet transform. This approach underperforms the Power spectrum models with higher numbers of false negatives and positives.
-    Seizure Normal
-    Predicted Seizure   0.905   0.124
-    Predicted Normal    0.095   0.87</p>
+<p>All the analysis done for Power spectrum approach were followed for DWT approach as well for consistency reasons. Also, doing similar analysis will help us compare both the processes and the final results arrived through both the approaches.
+Similar to the power spectrum approach, DWT approach has also more than 50 predictors, so it is impossible to visualize the relationship. Also, model selection was done in the same manner as Power spectrum approach and compared their overall accuracy, accuracy on class 0(normal) and class 1(seizure).</p>
+
+<p>We ran multiple algorithms like Weighted Logistic regression, k-nearest neighbors, Linear and Quadratic Discriminant Analysis, Random Forest algorithms. We used sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis and took the default parameters. We ran random forest with different values of trees ranging from 50 to 300 and depths ranging from 2 to maximum. Finally at a depth of 5 and number of trees as 300, we were able to get the best accuracy possible for both the classes(seizure and normal).</p>
+
+<p>We randomly split the data set as training and testing set with proportions of 80% and 20%. We used the training set to run cross validations by splitting the training set 10 times into80% and 20% sub-training/testing sets. Below are the average accuracy on class 0, class 1.</p>
+
+<p>Random forest is also the best model to predict seizures using the Discrete Wavelet transform. Random Forest gave an accuracy of 89.9% on class 0(normal) and 93.2% accuracy on Class 1(seizure). We would like to select a model which has a higher prediction accuracy for seizures.</p>
+
+<p><img src="images/p1/Prediction_accuracy_using_haar.PNG" alt="Prediction_accuracy_using_haar"></p>
+
+<p>As the wavelets are passed through higher number of filter banks, they are compressed exponentially. As we compress more, we may lose more information from the signal. This is evident from the graph that as the filter bands increases, our prediction accuracy also reduces.</p>
+
+<p>As mentioned earlier, the shape of the daubechies wavelet resembles the shape of the scalp EEG data. From the graph shown above, daubechies wavelet gives better accuracy even at higher filter bank levels compared to haar wavelets.</p>
+
+<p>Below you find the table showing the exact accuracies obtained using Random Forest with 300 trees and maximum depth as 5.</p>
+
+<p><img src="images/p1/t5_haar1.PNG" alt="Prediction_accuracy_using_haar"></p>
+
+<p>The following tables shows the results obtained from other regression algorithms.</p>
+
+<p><img src="images/p1/t6_knn.PNG" alt="Prediction_accuracy_using_haar"></p>
 
 <h1>
 <a id="6-generalization-to-other-patients" class="anchor" href="#6-generalization-to-other-patients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 Generalization to other patients</h1>
@@ -230,26 +211,48 @@ n estimators    class 0 class 1 overall
 <h2>
 <a id="61--patient-specific-model" class="anchor" href="#61--patient-specific-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1  Patient-specific model</h2>
 
-<p>Previously we used data from a single patient to fit a model and make predictions. Can we use the same model to predict seizures for other patients? Shoeb warned that multi-patient classifiers would not be as effective. Seizures can differ dramatically between patients. Artifacts for one patient can look like a seizure for another patient.
-The patient-specific random forest had impressive results on testing sets. We separated predictions made during the day and the night. We do not seem to do much better at night like we could have expected when we looked at scatter plots of the data.</p>
+<p>Previously we used data from a single patient to fit a model and make predictions. Can we use the same model to predict seizures for other patients? Shoeb warned that multi-patient classifiers would not be as effective. Seizures can differ dramatically between patients. Artifacts for one patient can look like a seizure for another patient.</p>
 
-<pre><code>Seizure Normal - Night  Normal - Day
-</code></pre>
+<p>The patient-specific random forest had impressive results on testing sets. We separated predictions made during the day and the night. We do not seem to do much better at night like we could have expected when we looked at scatter plots of the data.</p>
 
-<p>Predicted Seizure   0.957   0.025   0.009
-    Predicted Normal    0.043   0.381   0.585
-Next we applied this model to new patients to see if we could generalize this model. Unfortunately, the number of false negatives went up dramatically from 4.3% to 43.3%. In addition, the model accuracy on normal activity decreased from 96.4% to 87.1%. The number of false positives increases more significantly during the day.
-    Seizure Normal - Night  Normal - Day
-Predicted Seizure   0.566   0.018   0.112
-    Predicted Normal    0.434   0.383   0.488</p>
+<p><img src="images/p1/t7_patient-specific.PNG" alt="t7_patient-specific"></p>
+
+<p>Next we applied this model to new patients to see if we could generalize this model. Unfortunately, the number of false negatives went up dramatically from 4.3% to 43.3%. In addition, the model accuracy on normal activity decreased from 96.4% to 87.1%. The number of false positives increases more significantly during the day.</p>
+
+<p><img src="images/p1/t8_patient-specific_new.PNG" alt="t8_patient-specific_new"></p>
 
 <h2>
-<a id="62--multi-patient-model" class="anchor" href="#62--multi-patient-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2  Multi-patient model</h2>
+<a id="62--patient-specific-modeldwt" class="anchor" href="#62--patient-specific-modeldwt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.2  Patient-specific model(DWT)</h2>
 
-<p>Next we created a multi-patient model. We merged the data from 5 patients. We did the same split of train and test with 80/20% as done before. We used the same Random Forest approach by growing 300 trees with maximum depth of 2. Like expected this model is not as effective as our patient-specific model. We have 20.5% of false negatives and 6.3% of false positives. It is better though than applying a model from one patient to another.
-    Seizure Normal - Night  Normal - Day
-Predicted Seizure   0.795   0.027   0.036
-    Predicted Normal    0.205   0.385   0.552</p>
+<p>The patient specific random forest model gave the impressive results as shown below.
+Random forest - Patient 1 model</p>
+
+<p><img src="images/p1/t9_patient-specific_DWT.PNG" alt="t9_patient-specific_new"></p>
+
+<p>When we applied the same model for other patients to see if we could generalize the model. Similar to Power spectrum approach, false negatives increased dramatically and model accuracy also decreased.</p>
+
+<p><img src="images/p1/t10_patient-specific_DWT_new.PNG" alt="t10_patient-specific_new"></p>
+
+<p>As you can see above, the accuracy differs for every patient. Based on this, we could arrive at a conclusion that an activity termed as epileptic for one person could be a normal activity for another person. So, based on the above, it is not possible to generalize the model across patients.</p>
+
+<h2>
+<a id="63--multi-patient-modelpower-spectrum" class="anchor" href="#63--multi-patient-modelpower-spectrum" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.3  Multi-patient model(power spectrum)</h2>
+
+<p>Next we created a multi-patient model. We merged the data from 5 patients. We did the same split of train and test with 80/20% as done before. We used the same Random Forest approach by growing 300 trees with maximum depth of 2. Like expected this model is not as effective as our patient-specific model. We have 20.5% of false negatives and 6.3% of false positives. It is better though than applying a model from one patient to another.</p>
+
+<p><img src="images/p1/t11_multi-patient.PNG" alt="t11_patient-specific_new"></p>
+
+<h2>
+<a id="64--multi-patient-modeldwt" class="anchor" href="#64--multi-patient-modeldwt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.4  Multi-patient model(DWT)</h2>
+
+<p>We created a multi-patient model using DWT approach also. We merged data from 4 patients. We did the same split of train and test with 80% and 20% as done before. We applied the same Random forest classifier with 300 trees and maximum depth of 5. The result was better than the generalization of one patient model. But still has quite some false positives 16.6% and false negatives 21.7%.</p>
+
+<p><img src="images/p1/t12_multi-patient_DWT.PNG" alt="t12_patient-specific_new"></p>
+
+<h1>
+<a id="7-comparison-of-both-approaches" class="anchor" href="#7-comparison-of-both-approaches" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7 Comparison of both approaches</h1>
+
+<p>Based on the sections shown above, it could be seen that seizure analysis can be done using multiple ways. This paper talks about two specific ways (power spectrum and DWT). And based on all the analysis done, both approaches provide very similar results in all the comparisons. One approach can be considered as a cross-validation of another. Comparison of multiple approaches are essential in high risk industries such as medical.</p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
