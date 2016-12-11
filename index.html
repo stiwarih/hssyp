@@ -56,15 +56,13 @@
 <h2>
 <a id="15--data-cleaning" class="anchor" href="#15--data-cleaning" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.5  Data cleaning</h2>
 
-<p>We have noticed that the channel T8-P8 appears twice in the EEG files. The name and the time series are identical. We also notice that the channel T7-P7 and P7-T7 (logically) present the same information. The dataset was used for the phD thesis of Ali Shoeb who makes no mention of</p>
+<p>We have noticed that the channel T8-P8 appears twice in the EEG files. The name and the time series are identical. We also notice that the channel T7-P7 and P7-T7 (logically) present the same information. The dataset was used for the phD thesis of Ali Shoeb who makes no mention of cleaning the data but does filter the signals before doing any feature engineering.</p>
 
 <p><img src="images/p1/40secnormal.png" alt="40 second of EEG signals: normal activity "></p>
 
 <p><img src="images/p1/40secepilepsy.png" alt="40 second of EEG signals: epilepsy activity "></p>
 
 <p><img src="images/p1/FP1_F7_normal_vs_epil.png" alt="Difference in amplitudes: normal EEG vs epilepsy (FP1-F7) "></p>
-
-<p>cleaning the data but does filter the signals before doing any feature engineering.</p>
 
 <h1>
 <a id="2-feature-engineering" class="anchor" href="#2-feature-engineering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 Feature Engineering</h1>
@@ -130,12 +128,7 @@
 
 <p>Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weights logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively. Our classifier has a high percentage of false positive. We missed almost 10% of epileptic states but the percentage of false negative is low even during the day.</p>
 
-<pre><code>Seizure Normal (Night)  Normal (Day)
-</code></pre>
-
-<p>Predicted Seizure   0.907   0.011   0.011
-    Predicted Normal    0.093   0.361   0.618
-We can use the computed probability of class 1, of being in a state of epilepsy, to visualize how well we are doing during the night and the day.</p>
+<p>We can use the computed probability of class 1, of being in a state of epilepsy, to visualize how well we are doing during the night and the day.</p>
 
 <p><img src="images/p1/logistic1.png" alt="Figure 10: Around a seizure at night"></p>
 
@@ -157,11 +150,9 @@ We can use the computed probability of class 1, of being in a state of epilepsy,
 <a id="51--power-spectrum-approach" class="anchor" href="#51--power-spectrum-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1  Power Spectrum approach</h2>
 
 <p>With the number of predictors we are working with, it is impossible to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).
-We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms. We used sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis and took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random</p>
+We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms. We used sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis and took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random Forest, the classes were also balanced and we tried different depths. Finally, we set the number of depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Bossting.</p>
 
 <p><img src="images/p1/Channel_and_wave_importance.PNG" alt="Figure 12:Channel and wave importance"></p>
-
-<p>Forest, the classes were also balanced and we tried different depths. Finally, we set the number of depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Bossting.</p>
 
 <p>We first randomly split our dataset in a training and a testing set with proportions of 80%/20%. We used the training set to run cross validations by splitting the training set 10 times into 80%/20% sub-training/testing sets. Below are the average accuracy on class 0, class 1 and overall accuracy over the 10 testing sets. The results are in the tables below.</p>
 
@@ -184,8 +175,9 @@ We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis
 <h2>
 <a id="52--discrete-wavelet-transform-approach" class="anchor" href="#52--discrete-wavelet-transform-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.2  Discrete Wavelet Transform approach</h2>
 
-<p>All the analysis done for Power spectrum approach were followed for DWT approach as well for consistency reasons. Also, doing similar analysis will help us compare both the processes and the final results arrived through both the approaches.
-Similar to the power spectrum approach, DWT approach has also more than 50 predictors, so it is impossible to visualize the relationship. Also, model selection was done in the same manner as Power spectrum approach and compared their overall accuracy, accuracy on class 0(normal) and class 1(seizure).</p>
+<p>All the analysis done for Power spectrum approach were followed for DWT approach as well for consistency reasons. Also, doing similar analysis will help us compare both the processes and the final results arrived through both the approaches.</p>
+
+<p>Similar to the power spectrum approach, DWT approach has also more than 50 predictors, so it is impossible to visualize the relationship. Also, model selection was done in the same manner as Power spectrum approach and compared their overall accuracy, accuracy on class 0(normal) and class 1(seizure).</p>
 
 <p>We ran multiple algorithms like Weighted Logistic regression, k-nearest neighbors, Linear and Quadratic Discriminant Analysis, Random Forest algorithms. We used sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis and took the default parameters. We ran random forest with different values of trees ranging from 50 to 300 and depths ranging from 2 to maximum. Finally at a depth of 5 and number of trees as 300, we were able to get the best accuracy possible for both the classes(seizure and normal).</p>
 
