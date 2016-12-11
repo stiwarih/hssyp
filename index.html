@@ -119,7 +119,7 @@
 
 <p>We can transform EEG data to multiple wavelet forms e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. To do a comparison, we will use Haar wavelet as well to see how the results differ. For our analysis, we will only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
 
-<p><img src="images/p1/haarwavelet.png" alt="Figure 9: Shape of Haar Wavelet(left) and Shape of Daubechies(db2) wavelet(right)"></p>
+<p><img src="images/p1/db2_haar_wavelets.png" alt="Figure 9: Shape of Haar Wavelet(left) and Shape of Daubechies(db2) wavelet(right)"></p>
 
 <p>As it is seen above, the shape of the ”Daubechies” wavelet matches the shape of the EEG data. We expect to get better accuracy with daubechies wavelet.</p>
 
