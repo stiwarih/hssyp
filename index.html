@@ -34,9 +34,9 @@
 <h2>
 <a id="11--epilepsy-and-seizures" class="anchor" href="#11--epilepsy-and-seizures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1  Epilepsy and Seizures</h2>
 
-<p>The epilepsy is most common neurological disorder in which clusters of nerve cells (neurons), in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people all over the world. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, in turn cause secondary actions leading to a desired behavior. During a seizure, many neurons try to send signal at the same time, this abnormal surge of excessive electrical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
+<p>The epilepsy is most common neurological disorder in which clusters of nerve cells (neurons), in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people all over the world. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, in turn cause secondary actions leading to a undesired behavior. During a seizure, many neurons try to send signal at the same time, this abnormal surge of excessive electrical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
 
-<p>The introduction of new anti-epileptic drugs has made the most patient control the antiepileptic disorder, still one-third of people with epilepsy continue to have seizures despite treatment. In addition, the nature of the disease is quite unpredictable creates significant anxiety to the patients, mainly due to the fact that patients can experience loss of control and/or awareness. Thus detection and future predictions are key to minimize or eliminate the anxiety and fears at least in the cases where drug has no affect. A device able to detect seizures quickly could also improve patient care.</p>
+<p>The introduction of new anti-epileptic drugs has made the most patient control the neurological disorder, still one-third of people with epilepsy continue to have seizures despite treatment. In addition, the nature of the disease is quite unpredictable creates significant anxiety to the patients, mainly due to the fact that patients can experience loss of control and/or awareness. Thus detection and future predictions are key to minimize or eliminate the anxiety and fears at least in the cases where drug has no affect. A device able to detect seizures quickly could also improve patient care.</p>
 
 <h2>
 <a id="12--a-classification-problem" class="anchor" href="#12--a-classification-problem" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.2  A classification problem</h2>
@@ -115,7 +115,7 @@
 
 <p><img src="images/p1/DWT3FilterBanks.png" alt="Figure 8: Decomposition of a mother wavelet after 3 levels of filter banks"></p>
 
-<p>Duration of the mother wavelet is one hour. For every second 28 frequencies were recorded in the EEG. This mother wavelet was passed through 3 filter banks to decompose the wavelet by 23 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.</p>
+<p>Duration of the mother wavelet is one hour. For every second 2^8 frequencies were recorded in the EEG. This mother wavelet was passed through 3 filter banks to decompose the wavelet by 2^3 times. This has significantly reduced the size of the wavelet without loosing information. Also, we have still captured the frequency as well as location(in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.</p>
 
 <p>We can transform EEG data to multiple wavelet forms e.g: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies i.e. seizures. To do a comparison, we will use Haar wavelet as well to see how the results differ. For our analysis, we will only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals and each of these splits will become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
 
@@ -203,7 +203,7 @@ We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis
 <a id="6-generalization-to-other-patients" class="anchor" href="#6-generalization-to-other-patients" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 Generalization to other patients</h1>
 
 <h2>
-<a id="61--patient-specific-model" class="anchor" href="#61--patient-specific-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1  Patient-specific model</h2>
+<a id="61--fourier-approach" class="anchor" href="#61--fourier-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6.1  Fourier approach</h2>
 
 <p>Previously we used data from a single patient to fit a model and make predictions. Can we use the same model to predict seizures for other patients? Shoeb warned that multi-patient classifiers would not be as effective. Seizures can differ dramatically between patients. Artifacts for one patient can look like a seizure for another patient.</p>
 
