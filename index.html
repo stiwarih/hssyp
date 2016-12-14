@@ -72,11 +72,11 @@
 <h2>
 <a id="21--fourier-transform" class="anchor" href="#21--fourier-transform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1  Fourier Transform</h2>
 
-<p>The Fourier decomposes the EEG time series into a voltage by frequency spectral graph commonly called the "power spectrum", with power being the square of the EEG magnitude, and magnitude being the integral average of the amplitude of the EEG signal, measured from (+)peak to (-)peak), across the time sampled, or epoch. This transform helps us visualize the structure behind the signal.</p>
+<p>The Fourier decomposes the EEG time series into a voltage by frequency spectral graph commonly called the "power spectrum", with power being the square of the EEG magnitude, and magnitude being the integral average of the amplitude of the EEG signal, measured from (+) peak to (-) peak, across the time sampled, or epoch. This transform helps us visualize the structure behind the signal.</p>
 
 <p>EEG signals can quickly vary over time even during a seizure. They are non-stationary signals hence we will compute power spectrum densities on short intervals. We used two-second epochs like Shoeb and Guttag suggested in their article.</p>
 
-<p>The figure below presents the power spectrum of six two-second epochs recorded by the FP1-F7 channel. Those on the left are from normal activity and on the right are from a single given seizure. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures.</p>
+<p>The figures below show 20 two-second epochs for the same channel FP1-F7. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures. While we are not surprised to see differences in power spectrum during normal activity, power spectrum can vary also during seizures.</p>
 
 <p><img src="images/p1/PSepochs.png" alt="Figure 4: Power spectrum of 2-second samples of normal and epileptic activities"></p>
 
@@ -128,7 +128,7 @@
 <h1>
 <a id="3-a-first-logistic-model" class="anchor" href="#3-a-first-logistic-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 A First (Logistic) Model</h1>
 
-<p>Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weight logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively. Our classifier has a high percentage of false positives. We missed almost 10% of epileptic states but the percentage of false negatives is low even during the day.</p>
+<p>Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weight logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively on the testing set. Our classifier has a high percentage of false positives. We missed almost 10% of epileptic states but the percentage of false negatives is low even during the day.</p>
 
 <p>We can use the computed probability of class 1, of being in a state of epilepsy, to visualize how well we are doing during the night and the day.</p>
 
@@ -143,7 +143,7 @@
 
 <p>We used the feature importance output from Sklearn’s random forest function to understand what the main predictors might be. From that list, we chose what looked like the best candidates to try nine interactions between the powers of the most important channels. We also added to our list of predictors a dummy variable equal to 1 if the recording was during the day when the patient was supposedly awake, between 8am and 11pm. This gave us a total of 10 new additional predictors.</p>
 
-<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier but with 98 predictors already adding all of them would result in 3,828 (C_2^88) new features. We use a data set of 3,040 observations hence we had to select only a subset of interaction terms. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity.</p>
+<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier. We use a data set of 3,040 observations and there are almost 4,000 possible interaction variables. Hence to avoid any dimensionality issue we decided to select only a subset. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity so we selected the channels and brain waves that had a high importance according to our random forest model. We also used an image of a brain to draw which channels were the most important. The darker the red the more important the channel is.</p>
 
 <p><img src="images/p1/Channel_and_wave_importance.PNG" alt="Figure 12:Channel and wave importance"> </p>
 
@@ -157,15 +157,15 @@
 <h2>
 <a id="51--power-spectrum-approach" class="anchor" href="#51--power-spectrum-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1  Power Spectrum approach</h2>
 
-<p>With the number of predictorWith the number of predictors we are working with, it is difficult to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).</p>
+<p>With the number of predictors we are working with, it is difficult to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).</p>
 
-<p>We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms, using sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis but took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random Forest, the classes were also balanced and we tried different depths. Finally, we set the depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Boosting.</p>
+<p>We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms, using sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis but took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random Forest, the classes were also balanced and we tried different depths. Finally, we set the depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Boosting. We tried to run linear and non-linear Support Vector classifiers but both took way too long to run. We need our model to be run and maybe retrain often on intervals of 2 seconds. Time to compute is a key component her hence we dismissed support vector classifiers. </p>
 
 <p>We first randomly split our dataset in a training and a testing set with proportions of 80%/20%. We used the training set to run cross validations by splitting the training set 10 times into 80%/20% sub-training/testing sets. Below are the average accuracy on class 0, class 1 and overall accuracy over the 10 testing sets. The results are in the tables below.</p>
 
 <p>We mentioned earlier that we wanted to select a model that had the best accuracy on class 1 to be able to detect seizures as soon as possible. If models had similar performance then looking at the overall accuracy is the next logical thing to do. Random Forest performed better than Quadratic Discriminant Analysis and Logistic regressions that also have impressive results.</p>
 
-<p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1.</p>
+<p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1 on the testing set.</p>
 
 <p><img src="images/p1/t1_logistic1.PNG" alt="Logistic Regression 2"></p>
 
