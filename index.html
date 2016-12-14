@@ -22,7 +22,7 @@
       <h3>
 <a id="hannah-bend-sathish-kumar-yohann-smadja-and-sanjay-tiwari" class="anchor" href="#hannah-bend-sathish-kumar-yohann-smadja-and-sanjay-tiwari" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hannah Bend, Sathish Kumar, Yohann Smadja and Sanjay Tiwari</h3>
 
-<p><em>December 13, 2016</em></p>
+<p><em>December 14, 2016</em></p>
 
 <p><img src="images/p1/p1.png" alt="A logistic model detects a seizure"></p>
 
@@ -130,6 +130,8 @@
 
 <p>Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weight logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively on the testing set. Our classifier has a high percentage of false positives. We missed almost 10% of epileptic states but the percentage of false negatives is low even during the day.</p>
 
+<p><img src="images/p1/t1_logistic1.PNG" alt="Logistic Regression 2"></p>
+
 <p>We can use the computed probability of class 1, of being in a state of epilepsy, to visualize how well we are doing during the night and the day.</p>
 
 <p><img src="images/p1/logistic1.png" alt="Figure 10: Around a seizure at night"></p>
@@ -167,8 +169,6 @@
 
 <p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1 on the testing set.</p>
 
-<p><img src="images/p1/t1_logistic1.PNG" alt="Logistic Regression 2"></p>
-
 <p><img src="images/p1/t2_logistic2.PNG" alt="Logistic Regression 2"></p>
 
 <p><img src="images/p1/t3_QDA.PNG" alt="QDA"></p>
@@ -185,8 +185,6 @@
 <p>We ran multiple algorithms like Weighted Logistic regression, k-nearest neighbors, Linear and Quadratic Discriminant Analysis and Random Forest algorithms. We used sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis but took the default parameters. We ran random forest with different numbers of trees ranging from 50 to 300 and depths ranging from 2 to maximum. Finally at a depth of 5 and number of trees at 300, we were able to get the best accuracy possible for both the classes (seizure and normal).</p>
 
 <p>We randomly split the data set as training and testing set with proportions of 80% and 20%. We used the training set to run cross validations by splitting the training set 10 times into 80% and 20% sub-training/testing sets. Below are the average accuracies on class 0 and class 1. Random forest is also the best model to predict seizures using the Discrete Wavelet transform. Random Forest gave an accuracy of 89.9% on class 0 (normal) and 93.2% accuracy on Class 1 (seizure). As mentioned before, we want to select a model that maximizes prediction accuracy for seizures.</p>
-
-<p>Random forest is also the best model to predict seizures using the Discrete Wavelet transform, as it gave an accuracy of 89.9% on class 0 (normal) and 93.2% accuracy on class 1 (seizure).</p>
 
 <p><img src="images/p1/Prediction_accuracy_using_haar.PNG" alt="Prediction_accuracy_using_haar"></p>
 
