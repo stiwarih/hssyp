@@ -22,7 +22,7 @@
       <h3>
 <a id="hannah-bend-sathish-kumar-yohann-smadja-and-sanjay-tiwari" class="anchor" href="#hannah-bend-sathish-kumar-yohann-smadja-and-sanjay-tiwari" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hannah Bend, Sathish Kumar, Yohann Smadja and Sanjay Tiwari</h3>
 
-<p><em>December 14, 2016</em></p>
+<p><em>December 13, 2016</em></p>
 
 <p><img src="images/p1/p1.png" alt="A logistic model detects a seizure"></p>
 
@@ -34,7 +34,7 @@
 <h2>
 <a id="11--epilepsy-and-seizures" class="anchor" href="#11--epilepsy-and-seizures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1  Epilepsy and Seizures</h2>
 
-<p>Epilepsy is the most common neurological disorder in which clusters of nerve cells (neurons) in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people world-wide. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, which in turn cause secondary actions leading to a desired behavior. During a seizure, many neurons try to send signals at the same time; this abnormal surge of excessive elec- trical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
+<p>Epilepsy is the most common neurological disorder in which clusters of nerve cells (neurons) in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people world-wide. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, which in turn cause secondary actions leading to a desired behavior. During a seizure, many neurons try to send signals at the same time; this abnormal surge of excessive electrical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
 
 <p>The introduction of new anti-epileptic drugs has provided most patients the ability to control their seizures, however, three in ten patients with epilepsy continue to have seizures despite treatment. Given the nature of the disease is quite unpredictable, patients often experience high levels of anxiety, mainly due to the impending loss of control and/or awareness during a seizure. Thus, prediction is key to minimizing the anxiety and fear experienced by the patient, and prediction begins with detection. A device able to detect seizures quickly could vastly improve patient care.</p>
 
@@ -145,7 +145,9 @@
 
 <p>We used the feature importance output from Sklearn’s random forest function to understand what the main predictors might be. From that list, we chose what looked like the best candidates to try nine interactions between the powers of the most important channels. We also added to our list of predictors a dummy variable equal to 1 if the recording was during the day when the patient was supposedly awake, between 8am and 11pm. This gave us a total of 10 new additional predictors.</p>
 
-<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier. We use a data set of 3,040 observations and there are almost 4,000 possible interaction variables. Hence to avoid any dimensionality issue we decided to select only a subset. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity so we selected the channels and brain waves that had a high importance according to our random forest model. We also used an image of a brain to draw which channels were the most important. The darker the red the more important the channel is.</p>
+<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier. We use a data set of 3,040 observations and there are almost 4,000 possible interaction variables. Hence to avoid any dimensionality issue we decided to select only a subset. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity so we selected the channels and brain waves that had a high importance according to our random forest model.</p>
+
+<p>To visualize the channels and the role they play in our patient's seizures, we used an image of a brain to draw which channels were the most important in detecting seizures.  The darker the red, the more important the channel is.  From this, you can see that the most important channel is that which crosses the two hemispheres of the brain laterally from ear to ear (FT9 - FT10).  The secondary channels dissect this main channel on either side of the hemisphere, running perpendicularly from front to back (F3 - C3, F4 - C4).  What remains to be seen is whether these channels are as important in detecting seizures in other patients.</p>
 
 <p><img src="images/p1/Channel_and_wave_importance.PNG" alt="Figure 12:Channel and wave importance"> </p>
 
