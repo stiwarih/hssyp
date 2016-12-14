@@ -190,9 +190,11 @@
 
 <p><img src="images/p1/Prediction_accuracy_using_haar.PNG" alt="Prediction_accuracy_using_haar"></p>
 
-<p>As the wavelets are passed through higher number of filter banks, they are compressed exponentially. As we compress more, we may lose more information from the signal. It is evident from the graph that as the filter bands increase, our prediction accuracy reduces. As mentioned earlier, the shape of the Daubechies wavelet resembles the shape of the scalp EEG data. From the graph shown above, Daubechies wavelet gives better accuracy even at higher filter bank levels compared to Haar wavelets.</p>
+<p>As the wavelets are passed through higher number of filter banks, they are compressed exponentially. As we compress more, we may lose more information from the signal. It is evident from the graph that as the filter bands increase, our prediction accuracy reduces. As mentioned earlier, the shape of the Daubechies wavelet resembles the shape of the scalp EEG data. From the graph shown above, Daubechies wavelet gives better accuracy using Random Forrest model, even at higher filter bank levels compared to Haar wavelets.</p>
 
 <p><img src="images/p1/t5_haar1.PNG" alt="Prediction_accuracy_using_haar"></p>
+
+<p>The model does not appear to be linear. Adding interaction terms, we did not get any better accuracy, the results are listed as below:</p>
 
 <p><img src="images/p1/t6_knn.PNG" alt="Prediction_accuracy_using_haar"></p>
 
