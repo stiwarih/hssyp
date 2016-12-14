@@ -78,7 +78,7 @@
 
 <p>The figure below presents the power spectrum of six two-second epochs recorded by the FP1-F7 channel. Those on the left are from normal activity and on the right are from a single given seizure. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures.</p>
 
-<p><img src="images/p1/Power_spectrum_FP1_F7.PNG" alt="Figure 4: Power spectrum of 2-second samples of normal and epileptic activities"></p>
+<p><img src="images/p1/PSepochs.png" alt="Figure 4: Power spectrum of 2-second samples of normal and epileptic activities"></p>
 
 <p>The next figure shows the power spectrum of the 22 EEG channels for 2 seconds of normal and epileptic activity. It is important to include the recordings of all channels as they represent different areas of the brain. They each provide some unique information that will help our classifier.</p>
 
@@ -117,7 +117,7 @@
 
 <p><img src="images/p1/DWT3FilterBanks.png" alt="Figure 8: Decomposition of a mother wavelet after 3 levels of filter banks"></p>
 
-<p>Duration of the mother wavelet is one hour. For every second, 256 frequencies were recorded in the EEG. This mother wavelet was passed through three filter banks to decompose the wavelet by 8 times. This has significantly reduced the size of the wavelet without losing information. Also, we have still captured the frequency as well as location (in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.</p>
+<p>Duration of the mother wavelet is one hour. For every second, 256 (2^8) frequencies were recorded in the EEG. This mother wavelet was passed through three filter banks to decompose the wavelet by 8 (2^3) times. This has significantly reduced the size of the wavelet without losing information. Also, we have still captured the frequency as well as location (in time) information. We will also analyze the predictions obtained by passing the wavelet through different levels of filter banks.</p>
 
 <p>We can transform EEG data to multiple wavelet forms: Haar wavelets, Daubechies wavelets etc. For our analysis, we will use Daubechies wavelets because of its high orthogonal property which is important for detecting abrupt change in frequencies, i.e. seizures. To do a comparison, we will use Haar wavelet as well to see how the results differ. We will only use partial EEG data which includes normal and seizure activity and split the corresponding wavelet to 2 second intervals so that each of these splits will become an observation. The coefficients obtained after the wavelet transform will be used as predictors. The same procedure will be done for all channels of the EEG.</p>
 
@@ -143,7 +143,7 @@
 
 <p>We used the feature importance output from Sklearn’s random forest function to understand what the main predictors might be. From that list, we chose what looked like the best candidates to try nine interactions between the powers of the most important channels. We also added to our list of predictors a dummy variable equal to 1 if the recording was during the day when the patient was supposedly awake, between 8am and 11pm. This gave us a total of 10 new additional predictors.</p>
 
-<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier but with 98 predictors already adding all of them would result in 3,828 (2^88) new features. We use a data set of 3,040 observations hence we had to select only a subset of interaction terms. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity.</p>
+<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier but with 98 predictors already adding all of them would result in 3,828 (C_2^88) new features. We use a data set of 3,040 observations hence we had to select only a subset of interaction terms. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity.</p>
 
 <p><img src="images/p1/Channel_and_wave_importance.PNG" alt="Figure 12:Channel and wave importance"> </p>
 
