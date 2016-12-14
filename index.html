@@ -109,7 +109,7 @@
 
 <p>The wavelet transform is similar to the Fourier transform but with a completely different merit function. A key advantage it has over Fourier transforms is temporal resolution: it captures both frequency and location information (location in time). The discrete wavelet transform (DWT) is an implementation of the wavelet transform using a discrete set of the wavelet scales and translations obeying some defined rules.</p>
 
-<p>The DWT of a signal (x) is calculated by passing it through a series of filters. First the samples are passed through a low pass filter with impulse response (g) and simultaneously the signal is also decomposed using a high-pass filter (h). As an output, we get the detail and approximation coefficients.</p>
+<p>The DWT of a signal (x) is calculated by passing it through a series of filters. First, the samples are passed simultaneously through a low pass filter with impulse response (g) and a high pass one with impulse response (h). A low-pass filter attenuates or removes all frequencies above a cutoff frequency while passing those below unchanged or slightly modified. A high-pass filter does the opposite. As an output, we get the the detail coefficients (from the high-pass filter) and approximation coefficients (from the low-pass). The approximation coefficients are again passed through a low and a high pass filters and so on like the figure below shows.</p>
 
 <p><img src="images/p1/WaveletsDWT.png" alt="Figure 7: Block diagram of lter Analysis - 3 Level Filter Bank(DWT)"></p>
 
