@@ -34,7 +34,7 @@
 <h2>
 <a id="11--epilepsy-and-seizures" class="anchor" href="#11--epilepsy-and-seizures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1.1  Epilepsy and Seizures</h2>
 
-<p>Epilepsy is the most common neurological disorder in which clusters of nerve cells (neurons) in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people world-wide. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, which in turn cause secondary actions leading to a desired behavior. During a seizure, many neurons try to send signals at the same time; this abnormal surge of excessive electrical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
+<p>Epilepsy is the most common neurological disorder in which clusters of nerve cells (neurons) in the brain sometimes signal abnormally and cause seizures. Currently it affects 60 million people world-wide. Normal function of neurons is to generate electrical and chemical signals that act on other neurons, which in turn cause secondary actions leading to a desired behavior. During a seizure, many neurons try to send signals at the same time; this abnormal surge of excessive elec- trical activity causes involuntary movements, and may cause a loss of control, lapse of attention or whole-body convulsion.</p>
 
 <p>The introduction of new anti-epileptic drugs has provided most patients the ability to control their seizures, however, three in ten patients with epilepsy continue to have seizures despite treatment. Given the nature of the disease is quite unpredictable, patients often experience high levels of anxiety, mainly due to the impending loss of control and/or awareness during a seizure. Thus, prediction is key to minimizing the anxiety and fear experienced by the patient, and prediction begins with detection. A device able to detect seizures quickly could vastly improve patient care.</p>
 
@@ -72,11 +72,11 @@
 <h2>
 <a id="21--fourier-transform" class="anchor" href="#21--fourier-transform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.1  Fourier Transform</h2>
 
-<p>The Fourier decomposes the EEG time series into a voltage by frequency spectral graph commonly called the "power spectrum", with power being the square of the EEG magnitude, and magnitude being the integral average of the amplitude of the EEG signal, measured from (+) peak to (-) peak, across the time sampled, or epoch. This transform helps us visualize the structure behind the signal.</p>
+<p>The Fourier decomposes the EEG time series into a voltage by frequency spectral graph commonly called the "power spectrum", with power being the square of the EEG magnitude, and magnitude being the integral average of the amplitude of the EEG signal, measured from (+)peak to (-)peak), across the time sampled, or epoch. This transform helps us visualize the structure behind the signal.</p>
 
 <p>EEG signals can quickly vary over time even during a seizure. They are non-stationary signals hence we will compute power spectrum densities on short intervals. We used two-second epochs like Shoeb and Guttag suggested in their article.</p>
 
-<p>The figures below show 20 two-second epochs for the same channel FP1-F7. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures. While we are not surprised to see differences in power spectrum during normal activity, power spectrum can vary also during seizures.</p>
+<p>The figure below presents the power spectrum of six two-second epochs recorded by the FP1-F7 channel. Those on the left are from normal activity and on the right are from a single given seizure. We focus on the [0:25Hz] interval where most of the epileptic activity is. Comparing normal to mid-seizure, it is clear that the power spectrum peaks differ both in count and width, indicating that the magnitude of a wave for a given frequency differs between normal activity and seizures.</p>
 
 <p><img src="images/p1/PSepochs.png" alt="Figure 4: Power spectrum of 2-second samples of normal and epileptic activities"></p>
 
@@ -128,9 +128,7 @@
 <h1>
 <a id="3-a-first-logistic-model" class="anchor" href="#3-a-first-logistic-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 A First (Logistic) Model</h1>
 
-<p>Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weight logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively on the testing set. Our classifier has a high percentage of false positives. We missed almost 10% of epileptic states but the percentage of false negatives is low even during the day.</p>
-
-<p><img src="images/p1/t1_logistic1.PNG" alt="Logistic Regression 2"></p>
+<p>Using the average powers of brainwaves as predictors, we randomly split our model into a training and a testing set. We used the training set to run a cross validation and find the optimal regularization parameter. A balanced class weight logistic regression led to an accuracy of 97.9% and 90.7% on class 0 (normal activity) and class 1 (seizure) respectively. Our classifier has a high percentage of false positives. We missed almost 10% of epileptic states but the percentage of false negatives is low even during the day.</p>
 
 <p>We can use the computed probability of class 1, of being in a state of epilepsy, to visualize how well we are doing during the night and the day.</p>
 
@@ -145,9 +143,7 @@
 
 <p>We used the feature importance output from Sklearn’s random forest function to understand what the main predictors might be. From that list, we chose what looked like the best candidates to try nine interactions between the powers of the most important channels. We also added to our list of predictors a dummy variable equal to 1 if the recording was during the day when the patient was supposedly awake, between 8am and 11pm. This gave us a total of 10 new additional predictors.</p>
 
-<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier. We use a data set of 3,040 observations and there are almost 4,000 possible interaction variables. Hence to avoid any dimensionality issue we decided to select only a subset. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity so we selected the channels and brain waves that had a high importance according to our random forest model.</p>
-
-<p>To visualize the channels and the role they play in our patient's seizures, we used an image of a brain to draw which channels were the most important in detecting seizures.  The darker the red, the more important the channel is.  From this, you can see that the most important channel is that which crosses the two hemispheres of the brain laterally from ear to ear (FT9 - FT10).  The secondary channels dissect this main channel on either side of the hemisphere, running perpendicularly from front to back (F3 - C3, F4 - C4).  What remains to be seen is whether these channels are as important in detecting seizures in other patients.</p>
+<p>Unfortunately, the dummy variable is the least important feature of the 98 predictors. On the other hand, all nine interaction terms are in the top 22 features. We could add more of them as they seem to add value to our classifier but with 98 predictors already adding all of them would result in 3,828 (C_2^88) new features. We use a data set of 3,040 observations hence we had to select only a subset of interaction terms. Our intuition was to focus on areas of the brain that help discriminate between seizures and normal activity.</p>
 
 <p><img src="images/p1/Channel_and_wave_importance.PNG" alt="Figure 12:Channel and wave importance"> </p>
 
@@ -161,15 +157,17 @@
 <h2>
 <a id="51--power-spectrum-approach" class="anchor" href="#51--power-spectrum-approach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5.1  Power Spectrum approach</h2>
 
-<p>With the number of predictors we are working with, it is difficult to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).</p>
+<p>With the number of predictorWith the number of predictors we are working with, it is difficult to visualize the relationship between the predictors and the outcomes. Thus, we approached model selection by running cross validations of several models on training data and compared their overall accuracy, accuracy on class 0 (normal) and on class 1 (seizure).</p>
 
-<p>We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms, using sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis but took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random Forest, the classes were also balanced and we tried different depths. Finally, we set the depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Boosting. We tried to run linear and non-linear Support Vector classifiers but both took way too long to run. We need our model to be run and maybe retrain often on intervals of 2 seconds. Time to compute is a key component her hence we dismissed support vector classifiers. </p>
+<p>We ran weighted logistic regressions, Linear and Quadratic Discriminant Analysis classifiers, Random Forests and Gradient Boosting algorithms, using sklearn’s functions to run those models. The logistic regressions have balanced weighted classes and we tested different values of the regularization parameter C. We did not run any cross validation for Linear Discriminant Analysis but took the default parameters. We tested different values of the regularization parameter for Quadratic Discriminant Analysis. We fixed the number of trees to 300 for Random Forest, the classes were also balanced and we tried different depths. Finally, we set the depth to 2, the learning rate to 0.01, changed the random state at every split and tried several number of trees for Gradient Boosting.</p>
 
 <p>We first randomly split our dataset in a training and a testing set with proportions of 80%/20%. We used the training set to run cross validations by splitting the training set 10 times into 80%/20% sub-training/testing sets. Below are the average accuracy on class 0, class 1 and overall accuracy over the 10 testing sets. The results are in the tables below.</p>
 
 <p>We mentioned earlier that we wanted to select a model that had the best accuracy on class 1 to be able to detect seizures as soon as possible. If models had similar performance then looking at the overall accuracy is the next logical thing to do. Random Forest performed better than Quadratic Discriminant Analysis and Logistic regressions that also have impressive results.</p>
 
-<p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1 on the testing set.</p>
+<p>On the testing set, the Random Forest has an accuracy of 96.4% on class 0 and 95.7% on class 1.</p>
+
+<p><img src="images/p1/t1_logistic1.PNG" alt="Logistic Regression 2"></p>
 
 <p><img src="images/p1/t2_logistic2.PNG" alt="Logistic Regression 2"></p>
 
@@ -188,13 +186,13 @@
 
 <p>We randomly split the data set as training and testing set with proportions of 80% and 20%. We used the training set to run cross validations by splitting the training set 10 times into 80% and 20% sub-training/testing sets. Below are the average accuracies on class 0 and class 1. Random forest is also the best model to predict seizures using the Discrete Wavelet transform. Random Forest gave an accuracy of 89.9% on class 0 (normal) and 93.2% accuracy on Class 1 (seizure). As mentioned before, we want to select a model that maximizes prediction accuracy for seizures.</p>
 
+<p>Random forest is also the best model to predict seizures using the Discrete Wavelet transform, as it gave an accuracy of 89.9% on class 0 (normal) and 93.2% accuracy on class 1 (seizure).</p>
+
 <p><img src="images/p1/Prediction_accuracy_using_haar.PNG" alt="Prediction_accuracy_using_haar"></p>
 
-<p>As the wavelets are passed through higher number of filter banks, they are compressed exponentially. As we compress more, we may lose more information from the signal. It is evident from the graph that as the filter bands increase, our prediction accuracy reduces. As mentioned earlier, the shape of the Daubechies wavelet resembles the shape of the scalp EEG data. From the graph shown above, Daubechies wavelet gives better accuracy using Random Forrest model, even at higher filter bank levels compared to Haar wavelets.</p>
+<p>As the wavelets are passed through higher number of filter banks, they are compressed exponentially. As we compress more, we may lose more information from the signal. It is evident from the graph that as the filter bands increase, our prediction accuracy reduces. As mentioned earlier, the shape of the Daubechies wavelet resembles the shape of the scalp EEG data. From the graph shown above, Daubechies wavelet gives better accuracy even at higher filter bank levels compared to Haar wavelets.</p>
 
 <p><img src="images/p1/t5_haar1.PNG" alt="Prediction_accuracy_using_haar"></p>
-
-<p>The model does not appear to be linear. Even adding interaction terms, we did not get any better accuracy, the results are listed as below:</p>
 
 <p><img src="images/p1/t6_knn.PNG" alt="Prediction_accuracy_using_haar"></p>
 
@@ -248,6 +246,9 @@ Random forest - model trained on Patient 1</p>
 <p>We presented two approaches to detect seizures based on EEG data. We first used Fourier's Power Spectrum then Discrete Wavelets to transform the signals and extract the structure behind the noisy time series. After multiple cross validations, it seems that Random Forest with balanced classes, 300 trees and a max depth of 2 lead to the highest accuracy for class 1 (seizure). Indeed, our goal was to minimize the number of false negatives, predicting normal activity while the patient is actually experiencing a seizure. The two transform methods provided very similar results. One approach can be considered as a cross-validation of another. Comparison of multiple approaches are essential in high risk industries such as medical.</p>
 
 <p>While we were able to successfully detect seizures for a given patient based on their personal history of seizure activity, we were not able to expand this model to perform across multiple patients without a significant loss in accuracy. However, given our universe of data was from only 22 patients and we contrasted at most 5, it's possible that a larger study might uncover patterns across patients related to certain characteristics. Thus, we see our results as encouraging that more might be discovered rather than a definitive end to our quest.</p>
+
+<p>Even though some EEG channels are highly correlated, they bring key information to our classifier. It has been argued that Random Forests are recommended when dealing with redundant/correlated variables. Accuracy is usually more stable than with other models. <a href="http://cogsci.ucmerced.edu/shih/shih_randomforests.pdf">http://cogsci.ucmerced.edu/shih/shih_randomforests.pdf</a>
+The consistency of our results through different testing sets gives us an indication that we are not overfitting to our data.</p>
 
 <h1>
 <a id="8-references" class="anchor" href="#8-references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8 References</h1>
